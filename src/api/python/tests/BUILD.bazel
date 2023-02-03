@@ -15,6 +15,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 load("//bazel:pl_build_system.bzl", "pl_py_test")
+load("@vizier_api_python_deps//:requirements.bzl", "requirement")
 
 pl_py_test(
     name = "api_test",
@@ -41,5 +42,19 @@ pl_py_test(
     deps = [
         "//src/api/python/pxapi:pxapi_library",
         "//src/api/python/tests/helpers:test_utils",
+    ],
+)
+
+pl_py_test(
+    name = "self_hosted_registration_test",
+    srcs = ["self_hosted_registration_test.py"],
+    imports = [
+        "../",
+    ],
+    srcs_version = "PY3",
+    deps = [
+        "//src/api/python/self_hosted_registration:self_hosted_registration_library",
+        requirement("ddt"),
+        requirement("requests"),
     ],
 )
